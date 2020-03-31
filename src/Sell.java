@@ -10,7 +10,7 @@ public abstract class Sell {
     // проходимость объекта (false - для преград, которыми являются стены и здания; true - для всего остального)
     protected boolean isAvailable;
     // отрисовка объекта (как будет выглядеть на карте)
-    protected char image;
+    protected String image;
     // соседние ДОСТУПНЫЕ клетки
     protected List<Sell> neighbours;
     // родительская клетка (чтобы знать, с какой клетки попали в текущую)
@@ -22,7 +22,7 @@ public abstract class Sell {
     // финальная стоимость, равная сумме G и H
     protected int F;
 
-    public Sell(int x, int y, boolean isAvailable, char image) {
+    public Sell(int x, int y, boolean isAvailable, String image) {
         this.x = x;
         this.y = y;
         this.isAvailable = isAvailable;

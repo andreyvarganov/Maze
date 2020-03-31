@@ -4,7 +4,7 @@
 
 public class Canvas {
     // ширина и высота
-    private int width;
+    private int width   ;
     private int height;
     // матрица объектов
     private Sell[][] matrix;

@@ -10,4 +10,9 @@ public class Application {
         Application.size = size;
         canvas = new Canvas(size, size);
     }
+
+    public static void main(String[] args) {
+
+    }
+
 }
