@@ -1,3 +1,7 @@
+/**
+ * Класс, обозначающий здание
+ */
+
 public class Building extends Sell {
     // кол-во здания на карте
     private static int quantity;

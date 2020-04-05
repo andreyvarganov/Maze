@@ -28,4 +28,76 @@ public abstract class Sell {
         this.isAvailable = isAvailable;
         this.image = image;
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setNeighbours(List<Sell> neighbours) {
+        this.neighbours = neighbours;
+    }
+
+    public void setParent(Sell parent) {
+        this.parent = parent;
+    }
+
+    public void setG(int g) {
+        G = g;
+    }
+
+    public void setH(int h) {
+        H = h;
+    }
+
+    public void setF(int f) {
+        F = f;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public List<Sell> getNeighbours() {
+        return neighbours;
+    }
+
+    public Sell getParent() {
+        return parent;
+    }
+
+    public int getG() {
+        return G;
+    }
+
+    public int getH() {
+        return H;
+    }
+
+    public int getF() {
+        return F;
+    }
 }
