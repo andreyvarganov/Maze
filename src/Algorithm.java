@@ -7,7 +7,7 @@ public class Algorithm {
     private static List<Sell> closedList = new ArrayList<>();
 
     private static int getDistanceBetweenNeighbours(Sell from, Sell to) {
-        if (Math.abs(from.x - to.x) == 1 && Math.abs(from.y - to.y) == 1) return 14;
+        if (Math.abs(from.getX() - to.getX()) == 1 && Math.abs(from.getY() - to.getY()) == 1) return 14;
         else return 10;
     }
 
@@ -32,6 +32,8 @@ public class Algorithm {
     }
 
     public static List<Sell> searching(Canvas canvas, Sell start, Sell finish) {
+        openedList = new ArrayList<>();
+        closedList = new ArrayList<>();
         // находим всех соседей
         for (int i = 1; i < canvas.getMatrix().length - 1; i++) {
             for (int j = 1; j < canvas.getMatrix()[0].length - 1; j++) {
@@ -64,12 +66,12 @@ public class Algorithm {
                 // если закрытый список уже содержит этого соседа, то переходим к следующему
                 if (closedList.contains(neighbourSell)) continue;
                 // не понимаю, зачем это!
-                int tentativeG = currentSell.G + getDistanceBetweenNeighbours(currentSell, neighbourSell);
+                int tentativeG = currentSell.getG() + getDistanceBetweenNeighbours(currentSell, neighbourSell);
                 // если открытый список не содерит нашего соседа
                 if (!openedList.contains(neighbourSell)) {
                     // заполняем поля
                     neighbourSell.setParent(currentSell);
-                    neighbourSell.setG(neighbourSell.parent.G + getDistanceBetweenNeighbours(currentSell, neighbourSell));
+                    neighbourSell.setG(neighbourSell.getParent().getG() + getDistanceBetweenNeighbours(currentSell, neighbourSell));
                     neighbourSell.setH(getHeuristicLength(neighbourSell, finish));
                     neighbourSell.setF(neighbourSell.getG() + neighbourSell.getH());
                     // и добавляем в открытый список
@@ -77,7 +79,7 @@ public class Algorithm {
                 }
                 else {
                     // если сумма G и H нашей точки, меньше G соседа
-                    if (tentativeG < neighbourSell.G) {
+                    if (tentativeG < neighbourSell.getG()) {
                         neighbourSell.setG(tentativeG);
                         neighbourSell.setH(getHeuristicLength(neighbourSell, finish));
                         neighbourSell.setF(neighbourSell.getG() + neighbourSell.getH());
@@ -93,9 +95,9 @@ public class Algorithm {
     private static List<Sell> getPath(Sell sell) {
         List<Sell> result = new ArrayList<>();
 
-        while (sell.parent != null) {
+        while (sell.getParent() != null) {
             result.add(sell);
-            sell = sell.parent;
+            sell = sell.getParent();
         }
 
         return result;

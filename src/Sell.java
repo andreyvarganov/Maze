@@ -1,32 +1,54 @@
 import java.util.List;
 
 /**
- * Класс описывающий один объект на поле. Является базовым для всех видов объектов.
+ * Класс описывающий один объект на поле
  */
 
-public abstract class Sell {
+public class Sell {
     // координаты объекта
-    protected int x, y;
+    private int x, y;
     // проходимость объекта (false - для преград, которыми являются стены и здания; true - для всего остального)
-    protected boolean isAvailable;
+    private boolean isAvailable;
     // отрисовка объекта (как будет выглядеть на карте)
-    protected String image;
+    private String image;
+    // яв-ся ли клетка начальной
+    private boolean isStart;
+    // яв-ся ли клетка конечной
+    private boolean isFinish;
     // соседние ДОСТУПНЫЕ клетки
-    protected List<Sell> neighbours;
+    private List<Sell> neighbours;
     // родительская клетка (чтобы знать, с какой клетки попали в текущую)
-    protected Sell parent;
+    private Sell parent;
     // стоимость перехода в текущую клетку из родительской клетки
-    protected int G;
+    private int G;
     // стоимость попадания из этой клетки в пункт назначения, рассчитанная при помощи манхетенского расстояния
-    protected int H;
+    private int H;
     // финальная стоимость, равная сумме G и H
-    protected int F;
+    private int F;
 
-    public Sell(int x, int y, boolean isAvailable, String image) {
+    public Sell(int x, int y, boolean isAvailable, String image, boolean isStart, boolean isFinish) {
         this.x = x;
         this.y = y;
         this.isAvailable = isAvailable;
         this.image = image;
+        this.isStart = isStart;
+        this.isFinish = isFinish;
+    }
+
+    public void setStart(boolean start) {
+        isStart = start;
+    }
+
+    public void setFinish(boolean finish) {
+        isFinish = finish;
+    }
+
+    public boolean isStart() {
+        return isStart;
+    }
+
+    public boolean isFinish() {
+        return isFinish;
     }
 
     public void setX(int x) {
