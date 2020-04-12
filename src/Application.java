@@ -1,5 +1,6 @@
 import org.w3c.dom.ls.LSOutput;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,38 +39,12 @@ public class Application {
 
     public void draw() {
         drawBorders();
-        //tempDrawObjects();
         drawObjects();
     }
 
     /**
      * Рисуем объекты
      */
-
-    private void tempDrawObjects() {
-        for (int i = 1; i < size - 1; i++) {
-            for (int j = 1; j < size - 1; j++) {
-                canvas.setPoint(new Sell(i, j, true, ".", false, false));
-            }
-        }
-        buildings.add(new Sell(2, 2, false, "#", false, false));
-        buildings.add(new Sell(2, 4, false, "#", false, false));
-        buildings.add(new Sell(3, 4, false, "#", false, false));
-        buildings.add(new Sell(4, 2, false, "#", false, false));
-        buildings.add(new Sell(4, 3, false, "#", false, false));
-        buildings.add(new Sell(5, 5, false, "#", false, false));
-        for (int i = 0; i < buildings.size(); i++) {
-            canvas.setPoint(buildings.get(i));
-        }
-
-        warehouses.add(new Sell(3, 3, true, "O", false, true));
-        warehouses.add(new Sell(6, 6, true, "O", false, true));
-        for (int i = 0; i < warehouses.size(); i++) {
-            canvas.setPoint(warehouses.get(i));
-        }
-        cars.add(new Sell(1, 1, true, "8", true, false));
-        canvas.setPoint(cars.get(0));
-    }
 
     private void drawObjects() {
         // 1. Не трогая границы (которые уже отрисованы), все остальные клетки заполняем пустыми объектами
@@ -170,42 +145,30 @@ public class Application {
         cars.remove(0);
         warehouses.remove(road.get(road.size() - 1));
         cars.add(road.get(road.size() - 1));
-
-
-//        if (inc == 1) {
-//            sellFrom = cars.get(0);
-//        }
-//        // находим маршрут к каждому объекту
-//        for (int i = 0; i < warehouses.size(); i++) {
-//            road = Algorithm.searching(canvas, sellFrom, warehouses.get(i));
-//            // записываем в список маршрутов
-//            route.add(road);
-//        }
-//        // сортируем
-//        int min = Integer.MAX_VALUE;
-//        for (int i = 0; i < route.size(); i++) {
-//            if (min > route.get(i).size()) {
-//                min = route.get(i).size();
-//                road = route.get(i);
-//            }
-//        }
-//        // переворачиваем и нумеруем ходы
-//        Collections.reverse(road);
-//
-//        // исключаем найденный склад
-//        sellFrom = warehouses.remove(0);
-//        route.remove(road);
     }
 
     public void run() {
         // расставляем объекты на карте
         draw();
-        // выводим на экран начальное состояние
+        // отрисовка мира в приложении
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                View view = new View(canvas);
+                view.setVisible(true);
+            }
+        });
+        // выводим на консоль начальное состояние (лог)
         canvas.print();
         // поиск маршрутов
         int i = 0;
         while (!warehouses.isEmpty()) {
             search(++i);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             canvas.print();
         }
     }
